@@ -9,5 +9,5 @@ Caso a instalação de dependencias extras seja indesejada, a branch cli prove o
 * Instale SDL2 pelo gerenciador de pacotes da sua distro
 * ```git clone https://github.com/nerdjp/entrevista-agattitech```
 * ```cd entrevista-agattitech```
-* ```git checkout sdl
+* ```git checkout sdl```
 * ```make run```
