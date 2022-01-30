@@ -1,7 +1,5 @@
 #include <iostream>
 #include <cmath>
-#include <vector>
-#include <SDL2/SDL.h>
 
 //Struct with coordenates to return from the search
 struct Point {
@@ -136,126 +134,17 @@ Point fibonnachiLineSearch(float x, float y, float n) {
 	return {result, f(result)};
 }
 
-std::vector<Point> calculateGrapth(float start, float end) {
-	std::vector<Point> points;
-	for(float i = start; i <= end; i += 0.01) {
-		float x = i;
-		float y = f(x);
-		Point p;
-		points.push_back({x, y});
-	}
-	return points;
-}
-
 int main() {
-	//Initializing SDL structs
-	SDL_Window* window = SDL_CreateWindow("Fibonnaci Line Search", 0, 0, 1280, 720, SDL_WINDOW_SHOWN);
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
-
-	//Scale and offset for SDL2 rendering
-	int scale = 400;
-	int vOffset = 1000;
-	int pOffsetX = 0;
-	int pOffsetY = 0;
-
 	//Parameters for the Fibonnaci Search
 	float searchRangeStart = 0.3;
 	float searchRangeEnd = 0.8;
 	float tolerance = 8;
-	
-	// Fill a array with some points for drawing the graph
-	std::vector<Point> points = calculateGrapth(searchRangeStart, searchRangeEnd);
-
-	//Store actual points and visual points apart so that recalculation
-	//is not needed upon movement / scale rendering
-	std::vector<SDL_Point> sdlPoints;
 
 	// Finding the minimum point on the graph (the actual algorythim)
 	Point point = fibonnachiLineSearch(searchRangeStart, searchRangeEnd, tolerance);
 
 	// Printing the point coordinates on screen
-	print(point.x, "Point X: ");
-	print(point.y, "Point Y: ");
-
-	// Variables for window lifetime, scaling, movement and events
-	bool done = false;
-	bool isDragging = false;
-	int mouseX = 0;
-	int mouseY = 0;
-	SDL_Event event;
-	const int FPS = 60;
-	const int frameDelay = 1000 / FPS;
-	Uint32 frameStart;
-	Uint32 frameTime;
-
-
-	//Main window loop, to keep the window open and handle scale / movement
-	while(!done) {
-		frameStart = SDL_GetTicks();
-
-		sdlPoints.clear();
-		for(auto p : points) {
-			int x = pOffsetX + p.x * scale;
-			int y = pOffsetY + (p.y * -scale) + vOffset;
-			sdlPoints.push_back({x, y});
-		}
-
-		// Rendering the graph
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-		SDL_RenderClear(renderer);
-		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-		SDL_RenderDrawLines(renderer, &sdlPoints[0], sdlPoints.size());
-
-		// Creating a square to mark the minimum point
-		SDL_Rect rect;
-		rect.h = 5;
-		rect.w = 5;
-		rect.x = pOffsetX + (int)((point.x * scale) - 2.5);
-		rect.y = pOffsetY + (int)((point.y * -scale) - 2.5) + vOffset;
-
-		// Drawing the square for the minimum point
-		SDL_RenderFillRect(renderer, &rect);
-		SDL_RenderPresent(renderer);
-
-		// Pooling events to handle movement and zoom
-		while(SDL_PollEvent(&event)) {
-			switch(event.type) {
-				case SDL_MOUSEWHEEL:
-					if(event.wheel.y > 0) {
-						scale += 50;
-					} else {
-						scale -= 50;
-					}
-					break;
-				case SDL_MOUSEBUTTONDOWN:
-					isDragging = true;
-					break;
-				case SDL_MOUSEBUTTONUP:
-					isDragging = false;
-					break;
-				case SDL_MOUSEMOTION:
-					int newMouseX, newMouseY;
-					SDL_GetMouseState(&newMouseX, &newMouseY);
-					if(isDragging) {
-						pOffsetX -= (mouseX - newMouseX);
-						pOffsetY -= (mouseY - newMouseY);
-					}
-					mouseX = newMouseX;
-					mouseY = newMouseY;
-					break;
-				case SDL_QUIT:
-					done = true;
-					break;
-			}
-		}
-		
-		//Limiting the number of updates per second to 60, so that
-		//The rendering doesn't take all of the CPU
-		frameTime = SDL_GetTicks() - frameStart;
-		if(frameDelay > frameTime) {
-			SDL_Delay(frameDelay - frameTime);
-		}
-	}
-	
+	print(point.x, "Minimum Point X: ");
+	print(point.y, "Minimum Point Y: ");
 	return 0;
 }
