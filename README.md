@@ -5,7 +5,7 @@ A branch sdl possui SDL2 como dependencia para compilação, pois SDL foi usado 
 
 Caso a instalação de dependencias extras seja indesejada, a branch cli prove o codigo sem dependencias externas, além da biblioteca padrão do C++.
 
-# Instruções para compilar:
+# Instruções para compliaç:
 * Instale SDL2 pelo gerenciador de pacotes da sua distro
 * ```git clone https://github.com/nerdjp/entrevista-agattitech```
 * ```cd entrevista-agattitech```
