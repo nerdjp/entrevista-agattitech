@@ -11,3 +11,7 @@ Caso a instalação de dependencias extras seja indesejada, a branch cli prove o
 * ```cd entrevista-agattitech```
 * ```git checkout sdl```
 * ```make run```
+
+# Controles:
+* Clique e arraste para mover
+* Scroll do mouse para zoom
