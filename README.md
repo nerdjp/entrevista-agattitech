@@ -1,10 +1,9 @@
 # Entrevista Agattitech
 Algoritmo Fibonnaci Line Search implementado para a entrevista de estágio da AgattiTech.
 
-O programa possui SDL2 como dependencia para compilação, pois usei SDL para gerar um grafico da equação, me ajudando a entender o algoritmo e resolver o problema.
+Branch CLI representa a versão sem componentes graficos. Essa branch deve compilar em qualquer distro com gcc/g++ e glibc ou equivalente, pois foi usado apenas a biblioteca padrão do C++.
 
 # Instruções para compilar:
-* Instale SDL2 pelo gerenciador de pacotes da sua distro
 * ```git clone https://github.com/nerdjp/entrevista-agattitech```
 * ```cd entrevista-agattitech```
 * ```make run```
