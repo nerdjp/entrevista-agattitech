@@ -6,8 +6,10 @@ BINDIR = bin
 
 all: main
 
-main:
+bin:
 	mkdir bin/
+
+main: bin
 	$(CXX) $(CFLAGS) $(LIBS) main.cpp -o $(BINDIR)/main
 
 run: main
